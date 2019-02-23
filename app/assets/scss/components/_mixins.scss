@@ -1,0 +1,195 @@
+@mixin animation($args...) {
+    -webkit-animation: #{$args};
+    -moz-animation: #{$args};
+    -ms-animation: #{$args};
+    -o-animation: #{$args};
+    animation: #{$args};
+}
+
+@mixin push-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+
+@mixin transition($args...) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+
+    &:hover, &:active, &:focus {
+        -webkit-transition: $args;
+        -moz-transition: $args;
+        -ms-transition: $args;
+        -o-transition: $args;
+        transition: $args;
+    }
+}
+
+@mixin transition-delay($x: 0s) {
+    -webkit-transition-delay: $x;
+    -moz-transition-delay: $x;
+    -ms-transition-delay: $x;
+    -o-transition-delay: $x;
+    transition-delay: $x;
+}
+
+@mixin transform-origin($x: center, $y: center) {
+    -webkit-transform-origin: $x $y;
+    -moz-transform-origin: $x $y;
+    -ms-transform-origin: $x $y;
+    -o-transform-origin: $x $y;
+    transform-origin: $x $y;
+}
+
+@mixin translate($x: 0px, $y: 0px) {
+    -webkit-transform: translate($x, $y);
+    -moz-transform: translate($x, $y);
+    -ms-transform: translate($x, $y);
+    -o-transform: translate($x, $y);
+    transform: translate($x, $y);
+}
+
+@mixin translate-scale($x: 0px, $y: 0px, $deg: 0deg) {
+    -webkit-transform: translate($x, $y) scale($deg);
+    -moz-transform: translate($x, $y) scale($deg);
+    -ms-transform: translate($x, $y) scale($deg);
+    -o-transform: translate($x, $y) scale($deg);
+    transform: translate($x, $y) scale($deg);
+}
+
+@mixin rotate($deg: 0deg) {
+    -webkit-transform: rotate($deg);
+    -moz-transform: rotate($deg);
+    -ms-transform: rotate($deg);
+    -o-transform: rotate($deg);
+    transform: rotate($deg);
+}
+
+@mixin boxshadow($args...) {
+  -webkit-box-shadow: $args;
+  -moz-box-shadow: $args;
+  -ms-box-shadow: $args;
+  -o-box-shadow: $args;
+  box-shadow: $args;
+}
+
+@mixin border-radius($args...) {
+  -webkit-border-radius: $args;
+  -moz-border-radius: $args;
+  -o-border-radius: $args;
+  -ms-border-radius: $args;
+  border-radius: $args;
+}
+
+@mixin box-sizing($box-sizing) {
+  -webkit-box-sizing: $box-sizing;
+  -moz-box-sizing: $box-sizing;
+  -o-box-sizing: $box-sizing;
+  -ms-box-sizing: $box-sizing;
+  box-sizing: $box-sizing;
+}
+
+@mixin clip-path($args...) {
+  -webkit-clip-path: $args;
+  -moz-clip-path: $args;
+  -o-clip-path: $args;
+  -ms-clip-path: $args;
+  clip-path: $args;
+}
+
+@mixin flex() {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@mixin center-flex($position) {
+
+    @if $position == 'vertical' {
+        align-items: center;
+    }
+    @else if $position == 'horizontal' {
+        justify-content: center;
+    }
+    @else if $position == 'both' {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@mixin font($family: 'Source Sans Pro', $size: 16px, $lineheight: false) {
+    font-family: $family, Helvetica, Arial, sans-serif;
+    font-size: $size;
+    line-height: $lh;
+}
+
+@mixin responsive-font($responsive, $min, $max: false, $fallback: false) {
+  $responsive-unitless: $responsive / ($responsive - $responsive + 1);
+  $dimension: if(unit($responsive) == 'vh', 'height', 'width');
+  $min-breakpoint: $min / $responsive-unitless * 100;
+
+  @media (max-#{$dimension}: #{$min-breakpoint}) {
+    font-size: $min;
+  }
+
+  @if $max {
+    $max-breakpoint: $max / $responsive-unitless * 100;
+
+    @media (min-#{$dimension}: #{$max-breakpoint}) {
+      font-size: $max;
+    }
+  }
+
+  @if $fallback {
+    font-size: $fallback;
+  }
+
+  font-size: $responsive;
+
+  // Use case:
+  // @include responsive-font(3vw, 20px, 50px);
+  // @include responsive-font(font-size, minwidth, maxwidth, fallback font-size);
+}
+
+@mixin responsive-ratio($x,$y, $pseudo: false) {
+    $padding: unquote( ( $y / $x ) * 100 + '%' );
+
+    @if $pseudo {
+    	&::before {
+    		@include pseudo($pos: relative);
+    		width: 100%;
+    		padding-top: $padding;
+    	}
+    } @else {
+        padding-top: $padding;
+    }
+}
+
+/// Base path for assets (fonts, images...),
+/// should not include trailing slash
+$asset-base-path: '..' !default; // We're in assets/css, so to go to 'assets' we just need to go back one folder
+/// Asset URL builder
+@function asset($type, $file) {
+  @return url($asset-base-path + '/' + $type + '/' + $file);
+}
+
+/// Image asset helper
+@function image($file) {
+  @return asset('img', $file);
+}
+// Usage:
+// image('kittens.png');
+
+/// Font asset helper
+@function font($file) {
+  @return asset('font', $file);
+}
+// Usage:
+// font('unicorn.otf');

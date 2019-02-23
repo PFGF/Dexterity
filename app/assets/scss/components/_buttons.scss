@@ -1,0 +1,23 @@
+@import './_mixins';
+@import './_colors';
+.btn {
+    display: inline-block;
+    font-family: $font--avenir-black;
+    font-size: calc(50px / 3);
+    padding: 1em !important;
+    padding-right: 3em !important;
+    color: white;
+    background-color: $color--blue;
+    cursor: pointer;
+    @include box-sizing(border-box);
+    @include border-radius(5px);
+    @include transition(0.3s);
+
+    &:before {
+        left: calc(100% - 2em) !important;
+    }
+
+    &:hover, &:active, &:focus {
+        background-color: darken($color--blue, 15);
+    }
+}

@@ -1,0 +1,41 @@
+@import '_mixins';
+
+@font-face {
+    font-family: 'Freight-DispBook';
+    src: font('Freight-DispBook.eot'),
+         font('Freight-DispBook.eot?#iefix') format('embedded-opentype'),
+         font('Freight-DispBook.woff') format('woff'),
+         font('font/Freight-DispBook.ttf') format('truetype'),
+         font('font/Freight-DispBook.svg#Freight-DispBook') format('svg');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: 'Avenir-Book';
+    src: font('Avenir-Book.eot'),
+         font('Avenir-Book.eot?#iefix') format('embedded-opentype'),
+         font('Avenir-Book.woff') format('woff'),
+         font('Avenir-Book.ttf') format('truetype'),
+         font('Avenir-Book.svg#Avenir-Book') format('svg');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: 'Avenir-Black';
+    src: font('Avenir-Black.eot'),
+         font('Avenir-Black.eot?#iefix') format('embedded-opentype'),
+         font('Avenir-Black.woff') format('woff'),
+         font('Avenir-Black.ttf') format('truetype'),
+         font('Avenir-Black.svg#Avenir-Black') format('svg');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+$font--freight-book: 'Freight-DispBook';
+$font--avenir-book: 'Avenir-Book';
+$font--avenir-black: 'Avenir-Black';
